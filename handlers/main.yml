@@ -19,10 +19,7 @@
     web passwd {{ flexget_password }}
 
 - name: start flexget service
-  systemd:
-    name: flexget
-    state: started
-    daemon_reload: yes
+  command: systemctl start flexget
 
 - name: restart flexget service
   systemd:
