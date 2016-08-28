@@ -48,7 +48,7 @@ flexget_tasks:
 Example Playbook
 ----------------
 
-Simply include in your play, pass along variables if desired
+Simply include in your play, pass along variables if desired.  If `password` is not defined, one will be generated for you.
 
 ```yaml
 - hosts: all
