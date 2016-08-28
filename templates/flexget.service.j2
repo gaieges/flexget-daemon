@@ -1,0 +1,16 @@
+[Unit]
+Description=Flexget Daemon
+After=network.target
+
+[Service]
+Type=simple
+User=daemon
+Group=daemon
+UMask=000
+WorkingDirectory={{ flexget_config_dir }}
+ExecStart={{ flexget_binary }} daemon start
+ExecStop={{ flexget_binary }} daemon stop
+ExecReload={{ flexget_binary }} daemon reload
+
+[Install]
+WantedBy=multi-user.target

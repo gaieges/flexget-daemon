@@ -1,0 +1,20 @@
+galaxy_info:
+  author: Evin Callahan
+  description: Creates and enables flexget daemon mode
+  company: "Napsty, LLC"
+
+  # issue_tracker_url: http://example.com/issue/tracker
+  license: MIT
+  min_ansible_version: 2.2
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+
+  galaxy_tags: 
+    - flexget
+    - daemon
+
+
+dependencies: []

@@ -1,0 +1,31 @@
+---
+# handlers file for roles/flexget-daemon
+
+- name: enable flexget service
+  systemd:
+    name: flexget
+    enabled: yes
+    daemon_reload: yes
+
+- name: start flexget service
+  systemd:
+    name: flexget
+    state: started
+    daemon_reload: yes
+
+- name: stop flexget service
+  systemd:
+    name: flexget
+    state: stopped
+    daemon_reload: yes
+
+- name: restart flexget service
+  systemd:
+    name: flexget
+    state: restarted
+    daemon_reload: yes
+
+- name: set flexget web password
+  command: >
+    {{ flexget_binary }} -c {{ flexget_config_dir }}/config.yml 
+    web passwd {{ flexget_password }}

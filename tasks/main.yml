@@ -1,0 +1,46 @@
+---
+# tasks file for roles/flexget-daemon
+
+- name: ensure pip is installed
+  apt: name=python-pip state=latest
+
+- name: ensure flexget is installed
+  pip: name=flexget state=latest
+
+- name: "ensure {{ flexget_system_user }} user exists"
+  user:
+    state: present
+    name: "{{ flexget_system_user }}"
+    groups: "{{ flexget_system_user_groups }}"
+    system: yes
+
+- name: ensure config dir exists
+  file:
+    state: directory
+    path: "{{ flexget_config_dir }}"
+    mode: 0755
+    owner: "{{ flexget_system_user }}"
+    group: "{{ flexget_system_user_groups }}"
+
+- name: ensure flexget config file is setup correctly
+  template:
+    src: config.yml.j2
+    dest: "{{ flexget_config_dir }}/config.yml"
+    mode: 0600
+    owner: "{{ flexget_system_user }}"
+    group: "{{ flexget_system_user_groups }}"
+  notify:
+    - stop flexget service
+    - set flexget web password
+    - start flexget service
+
+- name: ensure systemd startup scripts are setup correctly
+  template: 
+    src: flexget.service.j2
+    dest: /etc/systemd/system/flexget.service
+    mode: 0644
+    owner: root
+    group: root
+  notify:
+    - enable flexget service
+    - start flexget service

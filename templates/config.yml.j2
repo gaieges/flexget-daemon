@@ -1,0 +1,11 @@
+web_server:
+  bind: {{ flexget_bind_host }}
+  port: {{ flexget_bind_port }}
+api:    {{ flexget_enable_api }}
+webui:  {{ flexget_enable_ui }}
+
+schedules:
+{{ flexget_schedules | to_yaml }}
+
+tasks: 
+  {{ flexget_tasks | to_yaml }}
