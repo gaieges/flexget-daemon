@@ -32,7 +32,7 @@ flexget_config_dir: /etc/flexget
 flexget_binary: /usr/local/bin/flexget
 
 flexget_system_user: daemon
-flexget_system_user_groups: daemon
+flexget_system_user_group: daemon
 
 flexget_schedules: 
   - tasks: '*'
