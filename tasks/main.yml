@@ -11,7 +11,7 @@
   user:
     state: present
     name: "{{ flexget_system_user }}"
-    groups: "{{ flexget_system_user_groups }}"
+    groups: "{{ flexget_system_user_group }}"
     system: yes
 
 - name: ensure config dir exists
@@ -20,7 +20,7 @@
     path: "{{ flexget_config_dir }}"
     mode: 0755
     owner: "{{ flexget_system_user }}"
-    group: "{{ flexget_system_user_groups }}"
+    group: "{{ flexget_system_user_group }}"
 
 - name: ensure flexget config file is setup correctly
   template:
@@ -28,7 +28,7 @@
     dest: "{{ flexget_config_dir }}/config.yml"
     mode: 0600
     owner: "{{ flexget_system_user }}"
-    group: "{{ flexget_system_user_groups }}"
+    group: "{{ flexget_system_user_group }}"
   notify:
     - stop flexget service
     - set flexget web password

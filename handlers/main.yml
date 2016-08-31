@@ -14,12 +14,17 @@
     daemon_reload: yes
 
 - name: set flexget web password
+  become: yes
+  become_user: "{{ flexget_system_user }}"
   command: >
     {{ flexget_binary }} -c {{ flexget_config_dir }}/config.yml 
     web passwd {{ flexget_password }}
 
 - name: start flexget service
-  command: systemctl start flexget
+  systemd:
+    name: flexget
+    state: started
+    daemon_reload: yes
 
 - name: restart flexget service
   systemd:

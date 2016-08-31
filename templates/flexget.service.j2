@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-User=daemon
-Group=daemon
+User={{ flexget_system_user }}
+Group={{ flexget_system_user_group }}
 UMask=000
 WorkingDirectory={{ flexget_config_dir }}
 ExecStart={{ flexget_binary }} daemon start
