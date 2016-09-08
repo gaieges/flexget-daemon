@@ -1,17 +1,19 @@
 ---
 # handlers file for roles/flexget-daemon
 
+- name: reload systemd
+  command: >
+    systemctl daemon-reload
+
 - name: enable flexget service
-  systemd:
+  service:
     name: flexget
     enabled: yes
-    daemon_reload: yes
 
 - name: stop flexget service
-  systemd:
+  service:
     name: flexget
     state: stopped
-    daemon_reload: yes
 
 - name: set flexget web password
   become: yes
@@ -21,14 +23,12 @@
     web passwd {{ flexget_password }}
 
 - name: start flexget service
-  systemd:
+  service:
     name: flexget
     state: started
-    daemon_reload: yes
 
 - name: restart flexget service
-  systemd:
+  service:
     name: flexget
     state: restarted
-    daemon_reload: yes
 

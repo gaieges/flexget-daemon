@@ -5,7 +5,7 @@ galaxy_info:
 
   # issue_tracker_url: http://example.com/issue/tracker
   license: MIT
-  min_ansible_version: 2.2
+  min_ansible_version: 2.0
 
   platforms:
     - name: Ubuntu

@@ -42,5 +42,6 @@
     owner: root
     group: root
   notify:
+    - reload systemd
     - enable flexget service
     - start flexget service
