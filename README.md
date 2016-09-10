@@ -9,7 +9,7 @@ Requirements
 ------------
 
 - Target to be Ubuntu Xenial
-- Ansible 2.2 (still in devel as of 2016-08-28)
+- Ansible 2.0
 
 Role Variables
 --------------

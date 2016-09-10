@@ -24,6 +24,10 @@ install:
 script:
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+  - ansible-playbook tests/test.yml -i tests/inventory --connection=local --sudo -e flexget_password=myPassword123
+  - curl -ILfs localhost:3539/api/
+  - curl -ILfs localhost:3539/ui/
+  - pgrep flexget
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
