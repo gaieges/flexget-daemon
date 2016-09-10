@@ -3,7 +3,7 @@
 
 - name: reload systemd
   command: >
-    systemctl daemon-reload
+    /bin/systemctl daemon-reload
 
 - name: enable flexget service
   service:

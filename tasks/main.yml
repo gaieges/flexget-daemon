@@ -1,11 +1,8 @@
 ---
 # tasks file for roles/flexget-daemon
 
-- name: Update apt cache.
-  apt: update_cache=yes cache_valid_time=86400
-
 - name: ensure pip is installed
-  apt: name=python-pip state=latest
+  apt: name=python-pip state=latest update_cache=yes cache_valid_time=86400
 
 - name: ensure setuptools is installed
   pip: name=setuptools state=latest

@@ -3,31 +3,21 @@ language: python
 python: "2.7"
 
 # Use the new container infrastructure
-sudo: false
+services: docker
 
-# Install ansible
-addons:
-  apt:
-    packages:
-    - python-pip
 
 install:
-  # Install ansible
-  - pip install ansible
-
-  # Check ansible version
-  - ansible --version
-
-  # Create ansible.cfg with correct roles_path
-  - printf '[defaults]\nroles_path=../' >ansible.cfg
+  - docker run -d --name target -v $PWD:/flexget-daemon --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro debian:jessie /sbin/init
+  - docker exec target sh -c "apt-get update && apt-get install python-pip python-dev libffi-dev libssl-dev sudo curl lsof -y && pip install -U setuptools && pip install ansible markupsafe" 
 
 script:
-  # Basic role syntax check
-  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
-  - ansible-playbook tests/test.yml -i tests/inventory --connection=local --sudo -e flexget_password=myPassword123
-  - curl -ILfs localhost:3539/api/
-  - curl -ILfs localhost:3539/ui/
-  - pgrep flexget
+  - docker exec target ansible-playbook /flexget-daemon/tests/test.yml -i /flexget-daemon/tests/inventory --syntax-check
+  - docker exec target ansible-playbook /flexget-daemon/tests/test.yml -i /flexget-daemon/tests/inventory --connection=local --sudo
+  - docker exec target pgrep flexget
+
+  # not working at the moment as the docker container doesnt seem to want to start up any ports.  needs fixing.
+  # - docker exec target curl -ILfsv 127.0.0.1:3539/api/
+  # - docker exec target curl -ILfsv 127.0.0.1:3539/ui/
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
