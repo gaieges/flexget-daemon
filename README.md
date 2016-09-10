@@ -1,5 +1,8 @@
+[![Build Status](https://travis-ci.org/gaieges/flexget-daemon-role.svg?branch=master)](https://travis-ci.org/gaieges/flexget-daemon-role)
+
 Flexget Daemon Ansible role
 ===========================
+
 
 > Role to set up Flexget in daemon mode
 
