@@ -4,8 +4,8 @@ web_server:
 api:    {{ flexget_enable_api }}
 webui:  {{ flexget_enable_ui }}
 
-schedules:
-{{ flexget_schedules | to_yaml }}
+# write out schedules in proper format
+{{ {'schedules':flexget_schedules} | to_nice_yaml }}
 
-tasks: 
-  {{ flexget_tasks | to_yaml }}
+# write out tasks in proper format
+{{ {'tasks':flexget_tasks} | to_nice_yaml }}
