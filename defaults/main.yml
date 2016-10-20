@@ -1,10 +1,13 @@
 ---
 # defaults file for roles/flexget-daemon
 
+
+flexget_enable_api: yes
 flexget_bind_host: 127.0.0.1
 flexget_bind_port: 3539
+
+# in order to use the webui, you must also enable the api above
 flexget_enable_ui: yes
-flexget_enable_api: yes
 
 
 flexget_ui_url: "http://{{bind_host}}:{{bind_port}}/ui/"
