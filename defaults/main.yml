@@ -1,6 +1,10 @@
 ---
 # defaults file for roles/flexget-daemon
 
+# locked to this version for now as flexget is rapidly changing and this playbook
+# works with the 2.5.4 version well
+# should be unrestricted when api is a bit more consistent
+flexget_version: 2.5.4
 
 flexget_enable_api: yes
 flexget_bind_host: 127.0.0.1

@@ -11,7 +11,10 @@
   pip: name=setuptools state=latest
 
 - name: ensure flexget is installed
-  pip: name=flexget state=latest
+  pip: 
+    name: flexget 
+    state: present 
+    version: "{{ flexget_version }}"
 
 - name: "ensure {{ flexget_system_user }} user exists"
   user:
@@ -28,13 +31,21 @@
     owner: "{{ flexget_system_user }}"
     group: "{{ flexget_system_user_group }}"
 
-- name: ensure flexget config file is setup correctly
+# we dont want to change an existing config file, since it would wipe user settings
+- name: check if flexget config file exists
+  stat: 
+    path: "{{ flexget_config_dir }}/config.yml"
+  ignore_errors: True
+  register: config_file
+
+- name: setup default flexget config if needed
   template:
     src: config.yml.j2
     dest: "{{ flexget_config_dir }}/config.yml"
     mode: 0600
     owner: "{{ flexget_system_user }}"
     group: "{{ flexget_system_user_group }}"
+  when: config_file|failed or config_file.stat.exists == False 
   notify:
     - stop flexget service
     - set flexget web password
